@@ -1,0 +1,496 @@
+{
+  "source": "saudi_vision2030_ar.pdf",
+  "source_sha256": "8ded913bcf6f6aef0b194d7d009ab409279db6a2f9449988bebb50a72d96fb01",
+  "text_sha256": "247b2479feef32bc36b45799ff9ca29cc642f7d4ae7852215bc606834ad86ee6",
+  "method": "Tesseract Arabic OCR, 300 DPI, PSM 3 with PSM 6 fallback for sparse pages; NFC; tatweel removed",
+  "page_numbering": "1-based PDF page order, not printed folio numbers",
+  "pages": [
+    {
+      "pdf_page": 1,
+      "start": 0,
+      "end": 113,
+      "ocr_characters": 98
+    },
+    {
+      "pdf_page": 2,
+      "start": 113,
+      "end": 128,
+      "ocr_characters": 0
+    },
+    {
+      "pdf_page": 3,
+      "start": 128,
+      "end": 167,
+      "ocr_characters": 24
+    },
+    {
+      "pdf_page": 4,
+      "start": 167,
+      "end": 333,
+      "ocr_characters": 151
+    },
+    {
+      "pdf_page": 5,
+      "start": 333,
+      "end": 1451,
+      "ocr_characters": 1103
+    },
+    {
+      "pdf_page": 6,
+      "start": 1451,
+      "end": 4214,
+      "ocr_characters": 2748
+    },
+    {
+      "pdf_page": 7,
+      "start": 4214,
+      "end": 4502,
+      "ocr_characters": 273
+    },
+    {
+      "pdf_page": 8,
+      "start": 4502,
+      "end": 4584,
+      "ocr_characters": 67
+    },
+    {
+      "pdf_page": 9,
+      "start": 4584,
+      "end": 4603,
+      "ocr_characters": 4
+    },
+    {
+      "pdf_page": 10,
+      "start": 4603,
+      "end": 4920,
+      "ocr_characters": 301
+    },
+    {
+      "pdf_page": 11,
+      "start": 4920,
+      "end": 5016,
+      "ocr_characters": 80
+    },
+    {
+      "pdf_page": 12,
+      "start": 5016,
+      "end": 7364,
+      "ocr_characters": 2332
+    },
+    {
+      "pdf_page": 13,
+      "start": 7364,
+      "end": 7389,
+      "ocr_characters": 9
+    },
+    {
+      "pdf_page": 14,
+      "start": 7389,
+      "end": 7417,
+      "ocr_characters": 12
+    },
+    {
+      "pdf_page": 15,
+      "start": 7417,
+      "end": 8393,
+      "ocr_characters": 960
+    },
+    {
+      "pdf_page": 16,
+      "start": 8393,
+      "end": 9521,
+      "ocr_characters": 1112
+    },
+    {
+      "pdf_page": 17,
+      "start": 9521,
+      "end": 9731,
+      "ocr_characters": 194
+    },
+    {
+      "pdf_page": 18,
+      "start": 9731,
+      "end": 9875,
+      "ocr_characters": 128
+    },
+    {
+      "pdf_page": 19,
+      "start": 9875,
+      "end": 10229,
+      "ocr_characters": 338
+    },
+    {
+      "pdf_page": 20,
+      "start": 10229,
+      "end": 11755,
+      "ocr_characters": 1510
+    },
+    {
+      "pdf_page": 21,
+      "start": 11755,
+      "end": 13039,
+      "ocr_characters": 1268
+    },
+    {
+      "pdf_page": 22,
+      "start": 13039,
+      "end": 14454,
+      "ocr_characters": 1399
+    },
+    {
+      "pdf_page": 23,
+      "start": 14454,
+      "end": 14522,
+      "ocr_characters": 52
+    },
+    {
+      "pdf_page": 24,
+      "start": 14522,
+      "end": 14754,
+      "ocr_characters": 216
+    },
+    {
+      "pdf_page": 25,
+      "start": 14754,
+      "end": 15209,
+      "ocr_characters": 439
+    },
+    {
+      "pdf_page": 26,
+      "start": 15209,
+      "end": 15712,
+      "ocr_characters": 487
+    },
+    {
+      "pdf_page": 27,
+      "start": 15712,
+      "end": 17129,
+      "ocr_characters": 1401
+    },
+    {
+      "pdf_page": 28,
+      "start": 17129,
+      "end": 18589,
+      "ocr_characters": 1444
+    },
+    {
+      "pdf_page": 29,
+      "start": 18589,
+      "end": 18624,
+      "ocr_characters": 19
+    },
+    {
+      "pdf_page": 30,
+      "start": 18624,
+      "end": 18757,
+      "ocr_characters": 117
+    },
+    {
+      "pdf_page": 31,
+      "start": 18757,
+      "end": 18816,
+      "ocr_characters": 43
+    },
+    {
+      "pdf_page": 32,
+      "start": 18816,
+      "end": 19923,
+      "ocr_characters": 1091
+    },
+    {
+      "pdf_page": 33,
+      "start": 19923,
+      "end": 20084,
+      "ocr_characters": 145
+    },
+    {
+      "pdf_page": 34,
+      "start": 20084,
+      "end": 20359,
+      "ocr_characters": 259
+    },
+    {
+      "pdf_page": 35,
+      "start": 20359,
+      "end": 22180,
+      "ocr_characters": 1805
+    },
+    {
+      "pdf_page": 36,
+      "start": 22180,
+      "end": 23802,
+      "ocr_characters": 1606
+    },
+    {
+      "pdf_page": 37,
+      "start": 23802,
+      "end": 23832,
+      "ocr_characters": 14
+    },
+    {
+      "pdf_page": 38,
+      "start": 23832,
+      "end": 24050,
+      "ocr_characters": 202
+    },
+    {
+      "pdf_page": 39,
+      "start": 24050,
+      "end": 24966,
+      "ocr_characters": 900
+    },
+    {
+      "pdf_page": 40,
+      "start": 24966,
+      "end": 26184,
+      "ocr_characters": 1202
+    },
+    {
+      "pdf_page": 41,
+      "start": 26184,
+      "end": 28044,
+      "ocr_characters": 1844
+    },
+    {
+      "pdf_page": 42,
+      "start": 28044,
+      "end": 29836,
+      "ocr_characters": 1776
+    },
+    {
+      "pdf_page": 43,
+      "start": 29836,
+      "end": 29866,
+      "ocr_characters": 14
+    },
+    {
+      "pdf_page": 44,
+      "start": 29866,
+      "end": 30161,
+      "ocr_characters": 279
+    },
+    {
+      "pdf_page": 45,
+      "start": 30161,
+      "end": 31274,
+      "ocr_characters": 1097
+    },
+    {
+      "pdf_page": 46,
+      "start": 31274,
+      "end": 33257,
+      "ocr_characters": 1967
+    },
+    {
+      "pdf_page": 47,
+      "start": 33257,
+      "end": 34915,
+      "ocr_characters": 1642
+    },
+    {
+      "pdf_page": 48,
+      "start": 34915,
+      "end": 35854,
+      "ocr_characters": 923
+    },
+    {
+      "pdf_page": 49,
+      "start": 35854,
+      "end": 35874,
+      "ocr_characters": 4
+    },
+    {
+      "pdf_page": 50,
+      "start": 35874,
+      "end": 36117,
+      "ocr_characters": 227
+    },
+    {
+      "pdf_page": 51,
+      "start": 36117,
+      "end": 37332,
+      "ocr_characters": 1199
+    },
+    {
+      "pdf_page": 52,
+      "start": 37332,
+      "end": 38791,
+      "ocr_characters": 1443
+    },
+    {
+      "pdf_page": 53,
+      "start": 38791,
+      "end": 40411,
+      "ocr_characters": 1604
+    },
+    {
+      "pdf_page": 54,
+      "start": 40411,
+      "end": 41177,
+      "ocr_characters": 750
+    },
+    {
+      "pdf_page": 55,
+      "start": 41177,
+      "end": 41409,
+      "ocr_characters": 216
+    },
+    {
+      "pdf_page": 56,
+      "start": 41409,
+      "end": 41618,
+      "ocr_characters": 193
+    },
+    {
+      "pdf_page": 57,
+      "start": 41618,
+      "end": 41667,
+      "ocr_characters": 33
+    },
+    {
+      "pdf_page": 58,
+      "start": 41667,
+      "end": 41685,
+      "ocr_characters": 2
+    },
+    {
+      "pdf_page": 59,
+      "start": 41685,
+      "end": 42840,
+      "ocr_characters": 1139
+    },
+    {
+      "pdf_page": 60,
+      "start": 42840,
+      "end": 45649,
+      "ocr_characters": 2793
+    },
+    {
+      "pdf_page": 61,
+      "start": 45649,
+      "end": 45962,
+      "ocr_characters": 297
+    },
+    {
+      "pdf_page": 62,
+      "start": 45962,
+      "end": 46227,
+      "ocr_characters": 249
+    },
+    {
+      "pdf_page": 63,
+      "start": 46227,
+      "end": 46253,
+      "ocr_characters": 10
+    },
+    {
+      "pdf_page": 64,
+      "start": 46253,
+      "end": 47617,
+      "ocr_characters": 1348
+    },
+    {
+      "pdf_page": 65,
+      "start": 47617,
+      "end": 47693,
+      "ocr_characters": 60
+    },
+    {
+      "pdf_page": 66,
+      "start": 47693,
+      "end": 49303,
+      "ocr_characters": 1594
+    },
+    {
+      "pdf_page": 67,
+      "start": 49303,
+      "end": 50693,
+      "ocr_characters": 1374
+    },
+    {
+      "pdf_page": 68,
+      "start": 50693,
+      "end": 51859,
+      "ocr_characters": 1150
+    },
+    {
+      "pdf_page": 69,
+      "start": 51859,
+      "end": 52176,
+      "ocr_characters": 301
+    },
+    {
+      "pdf_page": 70,
+      "start": 52176,
+      "end": 52438,
+      "ocr_characters": 246
+    },
+    {
+      "pdf_page": 71,
+      "start": 52438,
+      "end": 52492,
+      "ocr_characters": 38
+    },
+    {
+      "pdf_page": 72,
+      "start": 52492,
+      "end": 53433,
+      "ocr_characters": 925
+    },
+    {
+      "pdf_page": 73,
+      "start": 53433,
+      "end": 53449,
+      "ocr_characters": 0
+    },
+    {
+      "pdf_page": 74,
+      "start": 53449,
+      "end": 54432,
+      "ocr_characters": 967
+    },
+    {
+      "pdf_page": 75,
+      "start": 54432,
+      "end": 54486,
+      "ocr_characters": 38
+    },
+    {
+      "pdf_page": 76,
+      "start": 54486,
+      "end": 55775,
+      "ocr_characters": 1273
+    },
+    {
+      "pdf_page": 77,
+      "start": 55775,
+      "end": 56682,
+      "ocr_characters": 891
+    },
+    {
+      "pdf_page": 78,
+      "start": 56682,
+      "end": 57966,
+      "ocr_characters": 1268
+    },
+    {
+      "pdf_page": 79,
+      "start": 57966,
+      "end": 58260,
+      "ocr_characters": 278
+    },
+    {
+      "pdf_page": 80,
+      "start": 58260,
+      "end": 58276,
+      "ocr_characters": 0
+    },
+    {
+      "pdf_page": 81,
+      "start": 58276,
+      "end": 58449,
+      "ocr_characters": 157
+    }
+  ],
+  "limitations": "Machine OCR; spelling, numbers, and reading order may contain errors. Verify answers against the PDF."
+}

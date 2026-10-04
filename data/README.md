@@ -1,12 +1,24 @@
-# Instructor-supplied document
+# Saudi Vision 2030 source documents
 
-Add your workshop document as **`data/knowledge.txt`**, encoded as UTF-8.
-This folder intentionally does not contain invented workshop content.
+- `saudi_vision2030_ar.pdf`: original 81-page Arabic PDF supplied by the repository owner; copied without modification.
+- `saudi_vision2030_ar.txt`: UTF-8 Arabic OCR text, used by the chatbot by default.
+- `extraction.json`: source/text SHA-256 checksums, extraction method, and per-page character offsets.
 
-Commit the approved `.txt` document before sharing the repository with students.
-The default limit is 5 MB. Use a short document with several distinct topics for
-the lab. A document longer than 1,000 characters makes chunk overlap visible.
+The PDF's embedded text has malformed Arabic glyph mappings and reversed reading order. Text was therefore extracted locally with Tesseract's Arabic OCR model at 300 DPI. Unicode is normalized to NFC and decorative tatweel is removed. Page markers such as `[صفحة PDF 21]` refer to the 1-based PDF page order, not printed page numbers. Blank or image-only pages retain their markers.
 
-Changing `DATA_PATH` in `.env` allows another `.txt` filename. Re-run `chunk`
-and `embed` after changing the source. The test fixture is synthetic and is not
-loaded by the application.
+**Quality:** this is machine OCR, not a certified transcription. It can omit or misread words, figures, headings, or columns. Verify important answers against the original PDF. The source describes Vision 2030 ambitions and targets; it is not evidence that a target has been achieved. Chunk IDs identify retrieved text, not verified claims.
+
+## Reproduce extraction (optional)
+
+The TXT is already committed; normal chatbot setup does not require OCR tools.
+
+Install Tesseract with Arabic language data (`ara`) using your operating system package manager, then:
+
+```bash
+python -m pip install -r requirements-extraction.txt
+python scripts/extract_pdf.py
+python -m rag_lab chunk
+python -m rag_lab embed
+```
+
+The extraction script uses local OCR only and does not send the PDF to an external service. Embedding and chatbot generation use the configured OpenAI API. OCR output can vary with Tesseract versions and language models.

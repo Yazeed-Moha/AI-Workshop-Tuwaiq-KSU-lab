@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Ask your document · Tuwaiq RAG Lab</title>
+  <title>Saudi Vision 2030 · Document Chatbot</title>
   <link rel="stylesheet" href="/static/style.css">
   <script src="/static/app.js" defer></script>
 </head>
 <body>
-  <header><a class="brand" href="/">Tuwaiq <span>RAG LAB</span></a><a href="/guide/">Step-by-step guide ↗</a></header>
+  <header><a class="brand" href="/">Vision 2030 <span>DOCUMENT CHATBOT</span></a><a href="/guide/">Setup guide ↗</a></header>
   <main>
-    <section class="intro"><p class="eyebrow">DAY 02 · BUILD WITH YOUR OWN DATA</p><h1>Evidence first.<br><em>Then an answer.</em></h1><p>Ask a question about the workshop document. Inspect the passages the system retrieves, then see how they support the response.</p><p id="health" class="health" role="status">Checking the local index…</p></section>
+    <section class="intro"><p class="eyebrow">SAUDI VISION 2030 · رؤية السعودية ٢٠٣٠</p><h1>Explore the vision.<br><em>Ask the document.</em></h1><p>Ask in Arabic or English about Saudi Vision 2030. Answers use the included Arabic document and show supporting passages. This is an independent document assistant, not an official service or a live progress tracker.</p><p id="health" class="health" role="status">Checking the local index…</p></section>
+    <p><a href="/source.pdf" target="_blank" rel="noopener">Read the Arabic source PDF ↗</a></p>
     <form id="question-form">
       <label for="question">Your question</label>
-      <textarea id="question" maxlength="2000" rows="3" placeholder="Ask something your document can answer…" required dir="auto"></textarea>
-      <div class="controls"><label for="top-k">Passages to retrieve <select id="top-k"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label><div><button type="button" id="retrieve" class="secondary">Retrieve only</button><button type="submit" id="ask">Ask the document <span>→</span></button></div></div>
-      <p class="hint">Retrieval uses an embedding API call. Asking also uses a generation API call.</p>
+      <textarea id="question" maxlength="2000" rows="3" placeholder="ما هي محاور رؤية السعودية 2030؟" required dir="auto"></textarea>
+      <div class="controls"><label for="top-k">Passages to retrieve <select id="top-k"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label><div><button type="button" id="retrieve" class="secondary">Retrieve only</button><button type="submit" id="ask">Ask Vision 2030 <span>→</span></button></div></div>
+      <p class="hint">Each question is answered independently. The source was extracted with Arabic OCR; verify important wording and figures against the PDF.</p><p class="hint">Retrieval uses an embedding API call. Asking also uses a generation API call.</p>
     </form>
+    <div class="suggestions" aria-label="Example questions"><button type="button" class="secondary" data-question="ما هي محاور رؤية السعودية 2030؟" dir="rtl">ما هي محاور الرؤية؟</button><button type="button" class="secondary" data-question="كيف تدعم الرؤية الثقافة والترفيه؟" dir="rtl">الثقافة والترفيه</button><button type="button" class="secondary" data-question="How does Vision 2030 support small and medium enterprises?">Small businesses</button></div>
     <p id="status" role="status" aria-live="polite"></p>
     <section id="answer-section" hidden aria-labelledby="answer-title"><p class="eyebrow">GENERATED RESPONSE</p><h2 id="answer-title">Answer</h2><div id="answer" dir="auto"></div><p id="warnings" class="warning"></p><p id="model" class="hint"></p></section>
     <section id="evidence-section" hidden aria-labelledby="evidence-title"><div class="section-heading"><h2 id="evidence-title">Retrieved evidence</h2><span id="evidence-count"></span></div><p class="hint">Scores measure cosine similarity. They are not confidence percentages. Read the passages to judge whether the answer is supported.</p><div id="evidence"></div></section>
     <details id="trace-section" hidden><summary>See the pipeline trace</summary><ol id="trace"></ol></details>
   </main>
-  <footer>Local workshop application · API keys stay on the server · <a href="/docs">API reference</a></footer>
+  <footer>Saudi Vision 2030 document chatbot · API keys stay on the server · <a href="/docs">API reference</a></footer>
 </body></html>

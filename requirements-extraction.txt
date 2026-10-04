@@ -1,0 +1,3 @@
+# Optional: only needed to regenerate the already-included TXT.
+pypdfium2>=4.30,<6
+Pillow>=10,<13

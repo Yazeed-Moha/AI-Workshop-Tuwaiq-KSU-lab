@@ -1,14 +1,18 @@
-# Tuwaiq × KSU — Day 2 RAG Lab
+# Saudi Vision 2030 Chatbot
 
-Build a document assistant one step at a time: **static character chunks → embeddings → retrieval → generation → frontend**.
+Ask questions in Arabic or English about the included Arabic Saudi Vision 2030 document. Answers are grounded in retrieved passages with chunk citations. This independent chatbot is not an official service and does not track current progress. Each question is independent (no conversation memory).
 
-**Start with the visual guide:** open [`docs/index.html`](docs/index.html) in a browser. It includes commands for Windows/macOS/Linux, explanations, checkpoints, a chunk-overlap visualization, exercises, and troubleshooting. The guide works without a server.
+The repository includes the original **[`data/saudi_vision2030_ar.pdf`](data/saudi_vision2030_ar.pdf)** and the extracted **[`data/saudi_vision2030_ar.txt`](data/saudi_vision2030_ar.txt)**. The TXT is the default knowledge source; you do not need to provide another document or run extraction to start.
 
-## Before the workshop
+**Setup guide:** open [`docs/index.html`](docs/index.html). It explains the existing pipeline: static 1,000-character chunks with 250-character overlap → embeddings → retrieval → generation → frontend.
 
-Instructor: commit your approved UTF-8 document as **`data/knowledge.txt`**. The app intentionally has no invented replacement dataset. Update the example questions in your workshop to match the document. Give students access to the repository and a way to use their own OpenAI API credentials.
+Requires Git, Python 3.10+, and an OpenAI API key. Document chunks and questions are sent to OpenAI; API calls incur usage charges. No key or generated index is committed.
 
-Students need Git, Python 3.10+, and an OpenAI API key with access to the configured models. API calls incur usage charges. Document chunks and questions are sent to OpenAI; use the approved workshop text.
+## Source quality
+
+The PDF contains 81 pages. Its embedded Arabic text has broken character mappings and reading order, so the committed TXT uses local Arabic OCR. Page markers identify PDF page order, which can differ from printed page numbers. OCR may misread spelling, numbers, or columns; check important claims against the original PDF. The chatbot distinguishes targets in the document from actual present-day results.
+
+See [`data/README.md`](data/README.md) for provenance, extraction details, and the reproducible extraction command. Existing installations should update `DATA_PATH` in `.env` to `data/saudi_vision2030_ar.txt`, then rerun `chunk` and `embed`.
 
 ## Quick start
 
@@ -34,12 +38,12 @@ python -m rag_lab chunk
 # 2. Embed and persist the vectors. Reuses a valid index on repeat runs.
 python -m rag_lab embed
 
-# Replace this placeholder question with one about your actual document.
+# Example questions about the included Vision 2030 source.
 # 3. Search without generating an answer.
-python -m rag_lab retrieve "What does the document say about TOPIC?" --top-k 3
+python -m rag_lab retrieve "ما هي محاور رؤية السعودية 2030؟" --top-k 3
 
 # 4. Chain retrieval, context, and generation.
-python -m rag_lab ask "What does the document say about TOPIC?" --top-k 3
+python -m rag_lab ask "ما هي محاور رؤية السعودية 2030؟" --top-k 3
 
 # 5. Serve the backend and browser interface.
 python -m rag_lab serve
@@ -79,9 +83,9 @@ python -m pip install -r requirements-dev.txt
 python -m unittest discover -v
 ```
 
-Tests use a fake provider and make no API calls. They cover chunk boundaries, Unicode, overlap, stale indexes, vector validation, citation checks, and HTTP integration. To verify actual semantic quality, run the supported / boundary-spanning / unsupported question exercises in the guide with your document and real API key.
+Tests use a fake provider and make no API calls. They cover chunk boundaries, Unicode, overlap, stale indexes, vector validation, citation checks, and HTTP integration. To verify actual semantic quality, run the supported / boundary-spanning / unsupported question exercises in the guide with the Vision 2030 document and a real API key.
 
-## Teaching boundaries
+## Limitations
 
 - Similarity scores are not confidence percentages.
 - Retrieval always ranks available passages; high rank does not prove answerability.
@@ -89,6 +93,6 @@ Tests use a fake provider and make no API calls. They cover chunk boundaries, Un
 - Citation validation checks IDs, not whether the cited passage supports a claim.
 - Source text and model output render as plain text in the browser.
 - The server binds to localhost. It has no user authentication, rate limits, or production access controls.
-- The repository ignores `.env` and generated artifacts. The approved document itself is intentionally committed by the instructor.
+- The repository ignores `.env` and generated artifacts. The source PDF and OCR text are included.
 
 Official references are linked in the HTML guide and provider code follows the OpenAI embeddings and Responses APIs.

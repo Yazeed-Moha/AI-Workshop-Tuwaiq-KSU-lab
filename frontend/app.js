@@ -65,3 +65,7 @@ async function run(generate) {
 $('question-form').addEventListener('submit', event => {event.preventDefault(); run(true);});
 $('retrieve').addEventListener('click', () => run(false));
 health();
+
+document.querySelectorAll('[data-question]').forEach(button => {
+  button.addEventListener('click', () => { $('question').value = button.dataset.question; $('question').focus(); });
+});

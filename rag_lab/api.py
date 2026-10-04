@@ -16,13 +16,17 @@ class Question(BaseModel):
 
 def create_app(settings=None, provider_factory=OpenAIProvider) -> FastAPI:
     settings = settings or load_settings()
-    app = FastAPI(title="Tuwaiq RAG Lab", version="1.0.0")
+    app = FastAPI(title="Saudi Vision 2030 Chatbot", version="1.0.0")
     app.mount("/static", StaticFiles(directory=ROOT / "frontend"), name="static")
     app.mount("/guide", StaticFiles(directory=ROOT / "docs", html=True), name="guide")
 
     @app.get("/")
     def home():
         return FileResponse(ROOT / "frontend" / "index.html")
+
+    @app.get("/source.pdf", include_in_schema=False)
+    def source_pdf():
+        return FileResponse(ROOT / "data" / "saudi_vision2030_ar.pdf", media_type="application/pdf")
 
     @app.get("/api/health")
     def health():

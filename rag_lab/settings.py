@@ -32,7 +32,7 @@ def load_settings() -> Settings:
         raw = Path(os.getenv(name, default)).expanduser()
         return (ROOT / raw).resolve() if not raw.is_absolute() else raw.resolve()
     return Settings(
-        source=path("DATA_PATH", "data/knowledge.txt"),
+        source=path("DATA_PATH", "data/saudi_vision2030_ar.txt"),
         artifacts=path("ARTIFACTS_DIR", "artifacts"),
         embedding_model=os.getenv("EMBEDDING_MODEL", "text-embedding-3-small"),
         generation_model=os.getenv("GENERATION_MODEL", "gpt-4.1-mini"),
