@@ -1,3 +1,56 @@
+# Saudi Vision 2030 · Day 2 chatbot
+
+**Start here: [interactive Day 2 presentation](docs/index.html).** Download/open the HTML in your browser, or serve it at `/guide/`. It is a standalone file with 12 stages, keyboard navigation, adjustable chunking, cosine similarity, retrieval top-k, parameter-memory and context-budget demonstrations. Use “Show all steps” for reading or “Print / PDF” for handouts. Demonstrations are explicitly simulated; the Python app runs the real pipeline.
+
+## Simple LangChain teaching path
+
+Use Python **3.11 or 3.12**. The original PDF and extracted Arabic TXT are already in `data/`.
+
+```bash
+git clone https://github.com/Yazeed-Moha/AI-Workshop-Tuwaiq-KSU-lab.git
+cd AI-Workshop-Tuwaiq-KSU-lab
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-simple.txt
+cp .env.example .env
+# Edit .env: set OPENAI_API_KEY. Never commit the key.
+python -m simple.ingest --preview
+python -m simple.ingest
+python -m simple.chatbot "ما هي محاور الرؤية؟" --retrieve-only
+python -m simple.chatbot "ما هي محاور الرؤية؟"
+python -m uvicorn simple.app:app --host 127.0.0.1 --port 8000
+```
+
+Windows PowerShell: use `py -3.12 -m venv .venv`, `.\.venv\Scripts\Activate.ps1`, and `Copy-Item .env.example .env`. If activation is blocked, use `.\.venv\Scripts\python.exe` directly instead of `python`.
+
+Open **http://127.0.0.1:8000** for the chatbot and **http://127.0.0.1:8000/guide/** for the presentation. Each question is independent. API calls send text to OpenAI and incur usage charges. Chroma runs locally without a database account.
+
+| Small component | Responsibility |
+|---|---|
+| `simple/config.py` | Paths, model names, 1000-character chunks / 250 overlap |
+| `simple/ingest.py` | Exact slices → LangChain Documents → embeddings → persistent Chroma |
+| `simple/chatbot.py` | Search → context → prompt / model / parser → answer with evidence |
+| `simple/app.py` | FastAPI endpoints and existing plain HTML frontend |
+
+Chroma uses **cosine distance**: smaller is closer. The frontend displays `1 - distance` as cosine similarity, never a confidence percentage. The index is in `artifacts/chroma/`, separate from the previous JSON index. Unchanged ingestion reuses the index. Changed source, chunk settings or embedding model rebuilds this dedicated collection; generation-model changes do not require re-embedding.
+
+Optional extraction: see [data provenance and OCR instructions](data/README.md). OCR can misread text and figures. Check claims against the original PDF. The document describes targets, not verified current progress. Citation-ID validation is not factual verification.
+
+## Check the simple implementation
+
+```bash
+python -m pip install httpx
+python -m unittest tests.test_simple -v
+```
+
+These tests use real local Chroma and fake embeddings/model responses, with no API cost. Test actual Arabic retrieval and answer quality separately with your key. The local teaching app has no authentication, conversation memory or production deployment controls.
+
+## Earlier implementation (reference)
+
+The framework-free `rag_lab/` implementation is retained for comparison. Its original setup follows below; for Day 2 use the **simple** path above. The earlier guide is [docs/reference.html](docs/reference.html).
+
+---
+
 # Saudi Vision 2030 Chatbot
 
 Ask questions in Arabic or English about the included Arabic Saudi Vision 2030 document. Answers are grounded in retrieved passages with chunk citations. This independent chatbot is not an official service and does not track current progress. Each question is independent (no conversation memory).

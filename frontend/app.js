@@ -7,7 +7,7 @@ async function health() {
     if (!response.ok) throw new Error();
     const data = await response.json();
     $('health').textContent = data.ready
-      ? `${data.source} · ${data.chunks} chunks · ${data.dimensions} dimensions · ready`
+      ? `${data.source} · ${data.chunks} chunks · ${data.index_type || `${data.dimensions} dimensions`} · ready`
       : data.message;
     $('health').classList.toggle('ready', data.ready);
   } catch { $('health').textContent = 'Cannot reach the backend. Start it with: python -m rag_lab serve'; }
