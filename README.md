@@ -2,6 +2,21 @@
 
 **Start here: [interactive Day 2 presentation](docs/index.html).** Download/open the HTML in your browser, or serve it at `/guide/`. It is a standalone file with 12 stages, keyboard navigation, adjustable chunking, cosine similarity, retrieval top-k, parameter-memory and context-budget demonstrations. Use “Show all steps” for reading or “Print / PDF” for handouts. Demonstrations are explicitly simulated; the Python app runs the real pipeline.
 
+## Recommended provider: Groq
+
+1. Sign up at [Groq Console](https://console.groq.com/).
+2. Create your own [API key](https://console.groq.com/keys) and put it in `.env` as `GROQ_API_KEY`.
+3. Use `GROQ_MODEL=openai/gpt-oss-20b`, or another chat model available to your organization. This model ID is served **by Groq**; it does not require an OpenAI account.
+4. Stay on Groq's Free plan for the workshop and check your [organization limits](https://console.groq.com/settings/limits). Free use has per-model request/token limits per minute and per day, not unlimited tokens. Limits apply to the organization, so avoid a shared class key. On HTTP 429, wait for the limit to reset; repeated retries do not fix a daily cap. Paid plans are optional.
+
+The LLM runs on Groq infrastructure; students do not host it. To avoid a separate paid embedding API, the app downloads `intfloat/multilingual-e5-small` from Hugging Face once and runs it locally on CPU. Allow download time, disk space and memory before class. It needs no Hugging Face key for this public model. After download, retrieval works offline; answers still need Groq internet access.
+
+The E5 model uses `passage: ` for documents and `query: ` for queries, with normalized embeddings. It supports multilingual text including Arabic. Its input limit is 512 tokens; longer inputs can be truncated. Character chunking does not guarantee a token limit: inspect retrieval and reduce chunk size for unusually token-dense text. This embedding limit is separate from the LLM context window.
+
+**Existing installations:** install the updated `requirements-simple.txt`, add the three new variables from `.env.example`, and rerun `python -m simple.ingest` to rebuild the old OpenAI vector index. The signature detects this change. Keep your existing secrets private; do not overwrite your `.env` blindly.
+
+Sources: [Groq free-plan limits](https://console.groq.com/docs/rate-limits), [ChatGroq integration](https://docs.langchain.com/oss/python/integrations/chat/groq), [E5 model card](https://huggingface.co/intfloat/multilingual-e5-small).
+
 ## Simple LangChain teaching path
 
 Use Python **3.11 or 3.12**. The original PDF and extracted Arabic TXT are already in `data/`.
@@ -13,7 +28,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-simple.txt
 cp .env.example .env
-# Edit .env: set OPENAI_API_KEY. Never commit the key.
+# Edit .env: set GROQ_API_KEY. Never commit the key.
 python -m simple.ingest --preview
 python -m simple.ingest
 python -m simple.chatbot "ما هي محاور الرؤية؟" --retrieve-only
@@ -23,7 +38,7 @@ python -m uvicorn simple.app:app --host 127.0.0.1 --port 8000
 
 Windows PowerShell: use `py -3.12 -m venv .venv`, `.\.venv\Scripts\Activate.ps1`, and `Copy-Item .env.example .env`. If activation is blocked, use `.\.venv\Scripts\python.exe` directly instead of `python`.
 
-Open **http://127.0.0.1:8000** for the chatbot and **http://127.0.0.1:8000/guide/** for the presentation. Each question is independent. API calls send text to OpenAI and incur usage charges. Chroma runs locally without a database account.
+Open **http://127.0.0.1:8000** for the chatbot and **http://127.0.0.1:8000/guide/** for the presentation. Each question is independent. Questions and retrieved evidence go to Groq for generation. Embeddings run locally on CPU and Chroma runs locally without a database account. No OpenAI key is needed for this path.
 
 | Small component | Responsibility |
 |---|---|

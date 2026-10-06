@@ -4,6 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from groq import RateLimitError
 from .config import ROOT, DB, SOURCE
 from .ingest import require_index
 from .chatbot import ask, retrieve
@@ -42,10 +43,12 @@ def health():
 def run(payload, generate):
     try:
         return ask(payload.question, payload.top_k) if generate else {'matches': retrieve(payload.question, payload.top_k)}
+    except RateLimitError as exc:
+        raise HTTPException(429, 'Groq free-plan limit reached. Wait before retrying and check your organization limits at console.groq.com/settings/limits.') from exc
     except (ValueError, OSError) as exc:
         raise HTTPException(400, str(exc)) from exc
     except Exception as exc:
-        raise HTTPException(502, 'Model request failed. Check API key, model access, quota and connection.') from exc
+        raise HTTPException(502, 'Model request failed. Check GROQ_API_KEY, Groq model access, limits and connection.') from exc
 
 
 @app.post('/api/ask')

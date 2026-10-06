@@ -15,7 +15,7 @@
       <label for="question">Your question</label>
       <textarea id="question" maxlength="2000" rows="3" placeholder="ما هي محاور رؤية السعودية 2030؟" required dir="auto"></textarea>
       <div class="controls"><label for="top-k">Passages to retrieve <select id="top-k"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label><div><button type="button" id="retrieve" class="secondary">Retrieve only</button><button type="submit" id="ask">Ask Vision 2030 <span>→</span></button></div></div>
-      <p class="hint">Each question is answered independently. The source was extracted with Arabic OCR; verify important wording and figures against the PDF.</p><p class="hint">Retrieval uses an embedding API call. Asking also uses a generation API call.</p>
+      <p class="hint">Each question is answered independently. The source was extracted with Arabic OCR; verify important wording and figures against the PDF.</p><p class="hint">Retrieval uses the configured embedding model. In the Day 2 setup, embeddings run locally and answers use Groq’s hosted LLM within your plan limits.</p>
     </form>
     <div class="suggestions" aria-label="Example questions"><button type="button" class="secondary" data-question="ما هي محاور رؤية السعودية 2030؟" dir="rtl">ما هي محاور الرؤية؟</button><button type="button" class="secondary" data-question="كيف تدعم الرؤية الثقافة والترفيه؟" dir="rtl">الثقافة والترفيه</button><button type="button" class="secondary" data-question="How does Vision 2030 support small and medium enterprises?">Small businesses</button></div>
     <p id="status" role="status" aria-live="polite"></p>

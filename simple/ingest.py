@@ -3,7 +3,7 @@ import argparse
 import hashlib
 import json
 from langchain_core.documents import Document
-from langchain_openai import OpenAIEmbeddings
+from functools import lru_cache
 from langchain_chroma import Chroma
 from .config import SOURCE, DB, EMBED_MODEL, SIZE, OVERLAP
 
@@ -26,13 +26,23 @@ def fingerprint():
     text = SOURCE.read_text(encoding='utf-8-sig')
     if not text.strip():
         raise ValueError('The source text is empty.')
-    signature = hashlib.sha256((text + EMBED_MODEL + str((SIZE, OVERLAP))).encode()).hexdigest()
+    signature = hashlib.sha256((text + EMBED_MODEL + 'e5-prefix-normalized-v1' + str((SIZE, OVERLAP))).encode()).hexdigest()
     return text, signature
+
+
+@lru_cache(maxsize=1)
+def local_embeddings():
+    # CPU inference, downloaded once. No embedding API key or server required.
+    from langchain_huggingface import HuggingFaceEmbeddings
+    return HuggingFaceEmbeddings(
+        model_name=EMBED_MODEL, model_kwargs={'device': 'cpu'},
+        encode_kwargs={'normalize_embeddings': True, 'prompt': 'passage: '},
+        query_encode_kwargs={'normalize_embeddings': True, 'prompt': 'query: '})
 
 
 def open_store(embeddings=None):
     return Chroma(collection_name='vision2030', persist_directory=str(DB),
-                  embedding_function=embeddings or OpenAIEmbeddings(model=EMBED_MODEL),
+                  embedding_function=embeddings if embeddings is not None else local_embeddings(),
                   collection_metadata={'hnsw:space': 'cosine'})
 
 

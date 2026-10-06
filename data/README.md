@@ -21,4 +21,4 @@ python -m rag_lab chunk
 python -m rag_lab embed
 ```
 
-The extraction script uses local OCR only and does not send the PDF to an external service. Embedding and chatbot generation use the configured OpenAI API. OCR output can vary with Tesseract versions and language models.
+The extraction script uses local OCR only and does not send the PDF to an external service. The Day 2 simple/ path embeds locally and sends questions and evidence to Groq for generation. The legacy rag_lab/ path uses OpenAI APIs. OCR output can vary with Tesseract versions and language models.

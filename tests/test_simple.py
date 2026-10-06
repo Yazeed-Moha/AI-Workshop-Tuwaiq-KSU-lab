@@ -50,6 +50,44 @@ class SimpleTests(unittest.TestCase):
             self.assertEqual(len(result['matches']),2)
             with self.assertRaises(ValueError): retrieve(' ',3,store)
             with self.assertRaises(ValueError): retrieve('business',9,store)
+    def test_groq_configuration_and_payload(self):
+        import os
+        from unittest.mock import patch
+        from simple.chatbot import groq_model
+        with patch.dict(os.environ, {'GROQ_API_KEY': ''}):
+            with self.assertRaisesRegex(ValueError, 'GROQ_API_KEY'):
+                groq_model()
+        # Exercise the real ChatGroq adapter with a mocked HTTP transport.
+        import httpx, json
+        from langchain_groq import ChatGroq
+        def respond(request):
+            self.assertIn('api.groq.com', str(request.url))
+            body=json.loads(request.content)
+            self.assertEqual(body['model'], 'openai/gpt-oss-20b')
+            self.assertIn('Evidence', body['messages'][1]['content'])
+            return httpx.Response(200, json={
+                'id':'test', 'object':'chat.completion', 'created':0,
+                'model':body['model'], 'choices':[{'index':0,
+                'message':{'role':'assistant','content':'Evidence [chunk-0001]'},
+                'finish_reason':'stop'}], 'usage':{'prompt_tokens':10,'completion_tokens':5,'total_tokens':15}})
+        client=httpx.Client(transport=httpx.MockTransport(respond))
+        model=ChatGroq(model='openai/gpt-oss-20b',api_key='test-only',http_client=client)
+        self.assertEqual(make_chain(model).invoke({'context':'evidence','question':'test'}),'Evidence [chunk-0001]')
+        client.close()
+
+    def test_local_embedding_configuration(self):
+        from unittest.mock import patch
+        from simple.ingest import local_embeddings
+        local_embeddings.cache_clear()
+        with patch('langchain_huggingface.HuggingFaceEmbeddings') as factory:
+            local_embeddings()
+            kwargs=factory.call_args.kwargs
+            self.assertEqual(kwargs['encode_kwargs']['prompt'], 'passage: ')
+            self.assertEqual(kwargs['query_encode_kwargs']['prompt'], 'query: ')
+            self.assertTrue(kwargs['encode_kwargs']['normalize_embeddings'])
+            self.assertEqual(kwargs['model_kwargs']['device'], 'cpu')
+        local_embeddings.cache_clear()
+
     def test_http_contract(self):
         from unittest.mock import patch
         from fastapi.testclient import TestClient
@@ -60,3 +98,8 @@ class SimpleTests(unittest.TestCase):
             self.assertEqual(client.post('/api/ask',json={'question':'x','top_k':9}).status_code,422)
             with patch('simple.app.ask',return_value={'answer':'test','matches':[]}):
                 self.assertEqual(client.post('/api/ask',json={'question':'test'}).json()['answer'],'test')
+            import httpx
+            from groq import RateLimitError
+            error=RateLimitError('limited',response=httpx.Response(429,request=httpx.Request('POST','https://api.groq.com')),body={})
+            with patch('simple.app.ask',side_effect=error):
+                self.assertEqual(client.post('/api/ask',json={'question':'test'}).status_code,429)

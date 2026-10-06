@@ -4,7 +4,8 @@ import json
 import re
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_openai import ChatOpenAI
+import os
+from langchain_groq import ChatGroq
 from .config import CHAT_MODEL
 from .ingest import open_store, require_index
 
@@ -30,11 +31,19 @@ def retrieve(question, k=3, store=None):
             for doc, distance in pairs]
 
 
+def groq_model():
+    key = os.getenv('GROQ_API_KEY', '').strip()
+    if not key or key in {'your-groq-api-key', 'your-api-key'}:
+        raise ValueError('Set GROQ_API_KEY in .env. Get a key at https://console.groq.com/keys')
+    return ChatGroq(model=CHAT_MODEL, temperature=0, max_tokens=2048,
+                    timeout=45, max_retries=1)
+
+
 def make_chain(model=None):
     prompt = ChatPromptTemplate.from_messages([
         ('system', SYSTEM),
         ('human', 'Evidence (JSON):\n{context}\n\nQuestion: {question}')])
-    llm = model if model is not None else ChatOpenAI(model=CHAT_MODEL, temperature=0, max_tokens=800)
+    llm = model if model is not None else groq_model()
     return prompt | llm | StrOutputParser()
 
 
